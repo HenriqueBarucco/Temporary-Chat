@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: temporary-chat-db
+    environment:
+      MYSQL_DATABASE: 'temporary-chat'
+      MYSQL_USER: 'usr_temporary_chat'
+      MYSQL_PASSWORD: 'temporary_chat'
+      MYSQL_ROOT_PASSWORD: 'temporary_chat'
+    ports:
+      - '3306:3306'
+    volumes:
+      - temporary-chat-db:/var/lib/mysql
+
+volumes:
+  temporary-chat-db:
