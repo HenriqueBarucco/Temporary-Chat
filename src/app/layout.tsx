@@ -53,10 +53,10 @@ export default async function RootLayout({
                 />
               </div>
               <div className="space-y-2">
+                <CreateChat />
                 {chats.map((chat, index) => (
                   <ChatCard key={index} chat={chat} />
                 ))}
-                <CreateChat />
               </div>
             </div>
           </aside>

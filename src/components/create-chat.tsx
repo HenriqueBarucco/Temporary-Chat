@@ -35,14 +35,13 @@ export default function CreateChat() {
   })
 
   async function handleCreateChat({ name }: CreateChatSchema) {
-    console.log('sdf')
     await createChat({ name })
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="w-full">
           <PlusIcon className="mr-2 h-4" />
           Criar novo chat
         </Button>
