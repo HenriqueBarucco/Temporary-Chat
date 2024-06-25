@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import sendMessage from '@/actions/send-message'
+import { useEffect } from 'react'
 
 const sendMessageSchema = z.object({
   message: z.string().min(1, { message: 'Nome do chat é obrigatório' }),
@@ -19,13 +20,24 @@ type SendMessageProps = {
 }
 
 export default function SendMessage({ chatId }: SendMessageProps) {
-  const { register, handleSubmit } = useForm<SendMessageSchema>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = useForm<SendMessageSchema>({
     resolver: zodResolver(sendMessageSchema),
   })
 
   async function handleSendMessage({ message }: SendMessageSchema) {
     await sendMessage({ message, chatId })
   }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ message: '' })
+    }
+  }, [isSubmitSuccessful, reset])
 
   return (
     <form
