@@ -17,8 +17,6 @@ FROM node:22.3.0-alpine AS production
 WORKDIR /app
 
 COPY --from=build /app/package.json ./
-COPY --from=build /app/env.config.mjs ./
-COPY --from=build /app/next.config.mjs ./
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 
