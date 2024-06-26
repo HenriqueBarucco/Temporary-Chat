@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import ChatCard from '@/components/chat-card'
 import fetchChats from '@/actions/fetch-chats'
 import CreateChat from '@/components/create-chat'
+import NameDialog from '@/components/name-dialog'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default async function RootLayout({
           fontSans.variable,
         )}
       >
+        <NameDialog />
         <div className="flex h-screen bg-white dark:bg-zinc-800">
           <aside className="w-80 border-r dark:border-zinc-700">
             <div className="p-4 space-y-4">
