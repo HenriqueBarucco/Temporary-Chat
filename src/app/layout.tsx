@@ -5,12 +5,11 @@ import { cn } from '@/lib/utils'
 import { SearchIcon } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import ChatCard from '@/components/chat-card'
-import fetchChats from '@/actions/fetch-chats'
 import CreateChat from '@/components/create-chat'
 import NameDialog from '@/components/name-dialog'
 import { Toaster } from 'sonner'
 import Providers from '@/providers/providers'
+import Chats from '@/components/chats'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -26,8 +25,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const chats = await fetchChats()
-
   return (
     <html lang="pt">
       <body
@@ -60,9 +57,7 @@ export default async function RootLayout({
                 </div>
                 <div className="space-y-2">
                   <CreateChat />
-                  {chats.map((chat, index) => (
-                    <ChatCard key={index} chat={chat} />
-                  ))}
+                  <Chats />
                 </div>
               </div>
             </aside>
