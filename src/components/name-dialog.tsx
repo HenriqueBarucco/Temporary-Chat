@@ -27,24 +27,24 @@ export default function NameDialog() {
     <Dialog defaultOpen open={!user}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Novo Chat</DialogTitle>
+          <DialogTitle>Insira seu nome</DialogTitle>
           <DialogDescription>
-            Crie um novo chat para conversar com seus amigos. {user}
+            Insira seu nome para começar a conversar.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSetUser}>
           <div className="grid gap-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="user">Nome do chat</Label>
+              <Label htmlFor="user">Seu nome</Label>
               <Input
                 id="user"
                 name="user"
-                placeholder="Insira o nome do chat"
+                placeholder="Insira o seu nome aqui"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Criar</Button>
+            <Button type="submit">Salvar</Button>
           </DialogFooter>
         </form>
       </DialogContent>
