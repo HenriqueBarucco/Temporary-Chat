@@ -4,7 +4,6 @@ import { PlusIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -18,14 +17,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import createChat from '@/actions/create-action'
+import { useState } from 'react'
 
 const createChatSchema = z.object({
-  name: z.string().min(1, { message: 'Nome do chat é obrigatório' }),
+  name: z.string().min(1, { message: 'O nome do chat é obrigatório' }),
 })
 
 type CreateChatSchema = z.infer<typeof createChatSchema>
 
 export default function CreateChat() {
+  const [open, setOpen] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -36,12 +38,13 @@ export default function CreateChat() {
 
   async function handleCreateChat({ name }: CreateChatSchema) {
     await createChat({ name })
+    setOpen(false)
   }
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button className="w-full">
+        <Button className="w-full" onClick={() => setOpen(!open)}>
           <PlusIcon className="mr-2 h-4" />
           Criar novo chat
         </Button>
@@ -69,9 +72,9 @@ export default function CreateChat() {
           </div>
           <DialogFooter>
             <Button type="submit">Criar</Button>
-            <DialogClose>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
+            <Button variant="outline" onClick={() => setOpen(!open)}>
+              Cancelar
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
