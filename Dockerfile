@@ -7,6 +7,9 @@ COPY . .
 RUN npm install -g npm@latest
 RUN npm install
 
+ARG DATABASE_URL
+RUN echo "DATABASE_URL=${DATABASE_URL}" >> .env
+
 RUN npm run build
 
 FROM node:22.3.0-alpine AS production
