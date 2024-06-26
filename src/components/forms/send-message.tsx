@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import sendMessage from '@/actions/send-message'
 import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 const sendMessageSchema = z.object({
   message: z.string().min(1, { message: 'Nome do chat é obrigatório' }),
@@ -17,9 +18,10 @@ type SendMessageSchema = z.infer<typeof sendMessageSchema>
 
 type SendMessageProps = {
   chatId: string
+  user: string | null
 }
 
-export default function SendMessage({ chatId }: SendMessageProps) {
+export default function SendMessage({ chatId, user }: SendMessageProps) {
   const {
     register,
     handleSubmit,
@@ -30,7 +32,11 @@ export default function SendMessage({ chatId }: SendMessageProps) {
   })
 
   async function handleSendMessage({ message }: SendMessageSchema) {
-    await sendMessage({ message, chatId })
+    if (!user) {
+      toast.error('Você não está com o seu nome definido.')
+      return
+    }
+    await sendMessage({ message, chatId, user })
   }
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 type Store = {
   user: string | null
@@ -14,7 +14,7 @@ const useStore = create<Store>()(
     }),
     {
       name: 'user-storage',
-      getStorage: () => localStorage,
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 )
