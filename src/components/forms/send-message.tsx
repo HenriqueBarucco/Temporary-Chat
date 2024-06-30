@@ -51,7 +51,7 @@ export default function SendMessage({ chatId, user }: SendMessageProps) {
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files!
     if (isInvalidFile(file)) {
-      toast.error('Selecione Somente um Arquivo.')
+      toast.error('Selecione um Arquivo.')
       return
     }
     handleUploadFile(file[0])
