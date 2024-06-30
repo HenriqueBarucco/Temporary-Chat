@@ -1,12 +1,13 @@
 'use client'
 
-import { Chat as ChatType, Message } from '@prisma/client'
+import { Chat as ChatType, Message as MessageType } from '@prisma/client'
 import SendMessage from './forms/send-message'
 import fetchChatMessages from '@/actions/fetch-chat-messages'
 import { useQuery } from '@tanstack/react-query'
 import useStore from '@/lib/zustand'
 import { toast } from 'sonner'
 import { useEffect, useRef, useState } from 'react'
+import Message from './message'
 
 export default function Chat({ chat }: { chat: ChatType }) {
   const { user } = useStore()
@@ -31,7 +32,6 @@ export default function Chat({ chat }: { chat: ChatType }) {
 }
 
 function Messages({ chatId }: { chatId: string }) {
-  const { user } = useStore()
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [initialLoadCompleted, setInitialLoadCompleted] = useState(false)
 
@@ -60,22 +60,9 @@ function Messages({ chatId }: { chatId: string }) {
 
   return (
     <>
-      {data?.map((message: Message) =>
-        message.user === user ? (
-          <div key={message.id} className="flex items-end gap-2 justify-end">
-            <div className="rounded-lg bg-blue-500 text-white p-2 max-w-2xl">
-              <p className="text-sm break-words">{message.content}</p>
-            </div>
-          </div>
-        ) : (
-          <div key={message.id} className="flex items-end gap-2">
-            <div className="rounded-lg bg-zinc-200 dark:bg-zinc-700 p-2 max-w-2xl">
-              <p className="font-semibold">{message.user}</p>
-              <p className="text-sm break-words">{message.content}</p>
-            </div>
-          </div>
-        ),
-      )}
+      {data?.map((message: MessageType) => (
+        <Message key={message.id} message={message} />
+      ))}
       <div ref={messagesEndRef} />
     </>
   )

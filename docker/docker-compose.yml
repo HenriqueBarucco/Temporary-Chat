@@ -8,7 +8,7 @@ services:
       MYSQL_DATABASE: 'temporary-chat'
       MYSQL_USER: 'usr_temporary_chat'
       MYSQL_PASSWORD: 'temporary_chat'
-      MYSQL_ROOT_PASSWORD: 'temporary_chat'
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - '3306:3306'
     volumes:

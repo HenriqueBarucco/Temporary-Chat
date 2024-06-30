@@ -13,5 +13,8 @@ export default async function fetchChatMessages({
     where: {
       chatId,
     },
+    include: {
+      file: true,
+    },
   })
 }

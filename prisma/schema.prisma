@@ -37,5 +37,19 @@ model Message {
     chatId String
     chat   Chat   @relation(fields: [chatId], references: [id])
 
+    file   File?   @relation(fields: [fileId], references: [id])
+    fileId String?
+
     @@map("messages")
+}
+
+model File {
+    id   String @id @default(cuid())
+    name String
+    url  String
+
+    createdAt DateTime  @default(now())
+    message   Message[]
+
+    @@map("files")
 }
