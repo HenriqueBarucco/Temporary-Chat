@@ -67,23 +67,31 @@ export default function SendMessage({ chatId, user }: SendMessageProps) {
       return
     }
 
-    if (files && files.length > 0) {
-      const data = new FormData()
-      data.append('file', files[0])
-
-      const file = await uploadFile(data)
-      await sendMessage({
-        message,
-        chatId,
-        user,
-        file: {
-          url: file,
-          name: files[0].name,
-        },
-      })
+    if (isFilesNotEmpty(files)) {
+      await sendMessageWithFile(files,message)
     } else {
       await sendMessage({ message, chatId, user })
     }
+  }
+
+  async function sendMessageWithFile(files: File[],message: string) {
+    const data = new FormData()
+    data.append('file', files[0])
+
+    const file = await uploadFile(data)
+    await sendMessage({
+      message,
+      chatId,
+      user:user!,
+      file: {
+        url: file,
+        name: files[0].name,
+      },
+    })
+  }
+
+  function isFilesNotEmpty(files: File[] | null): files is File[] {
+    return files !== null && files.length > 0;
   }
 
   useEffect(() => {
