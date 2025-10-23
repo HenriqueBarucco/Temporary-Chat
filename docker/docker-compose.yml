@@ -1,18 +1,15 @@
-version: '3.3'
-
 services:
-  db:
-    image: mysql:8.0
-    container_name: temporary-chat-db
-    environment:
-      MYSQL_DATABASE: 'temporary-chat'
-      MYSQL_USER: 'usr_temporary_chat'
-      MYSQL_PASSWORD: 'temporary_chat'
-      MYSQL_ROOT_PASSWORD: 'root'
+  postgres:
+    container_name: postgres_temporary_chat
+    image: postgres:17-alpine
     ports:
-      - '3306:3306'
+      - "5432:5432"
     volumes:
-      - temporary-chat-db:/var/lib/mysql
+      - temporary-chat-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=usr_temporary_chat
+      - POSTGRES_PASSWORD=temporary_chat
+      - POSTGRES_DB=temporary_chat
 
 volumes:
   temporary-chat-db:
